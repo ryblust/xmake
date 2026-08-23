@@ -675,7 +675,7 @@ end
 -- wait for socket events
 --
 -- @param events    the events to wait, e.g. socket.EV_RECV, socket.EV_SEND
--- @param timeout   the timeout in milliseconds, -1 for infinite
+-- @param timeout   the timeout in milliseconds, -1 for infinite, 0 to check without waiting
 -- @return          the received events, or 0 on timeout
 --
 function _instance:wait(events, timeout)

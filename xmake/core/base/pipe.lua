@@ -235,7 +235,7 @@ end
 -- wait pipe events
 --
 -- @param events    the events to wait, e.g. pipe.EV_READ, pipe.EV_WRITE
--- @param timeout   the timeout in milliseconds, -1 for infinite
+-- @param timeout   the timeout in milliseconds, -1 for infinite, 0 to check without waiting
 -- @return          the received events, or 0 on timeout
 --
 function _instance:wait(events, timeout)

@@ -982,6 +982,15 @@ function scheduler:poller_wait(obj, events, timeout)
         end
     end
 
+    -- no events yet? return immediately if timeout is zero
+    --
+    -- @note we save the waiting events, so the poller caches the events when they
+    -- arrive and the next wait returns them immediately
+    if timeout == 0 then
+        pollerdata.poller_events_wait = events_wait
+        return 0
+    end
+
     -- register timeout task to timer
     local timer_task = nil
     if timeout > 0 then
@@ -1053,6 +1062,14 @@ function scheduler:poller_waitproc(obj, timeout)
         return -1, errors
     end
 
+    -- has not exited yet? return immediately if timeout is zero
+    --
+    -- @note we have inserted it into the poller, so its exit status is still saved
+    -- as a pending status when it exits later, and the next wait returns it immediately
+    if timeout == 0 then
+        return 0
+    end
+
     -- register timeout task to timer
     local timer_task = nil
     if timeout > 0 then
@@ -1121,6 +1138,14 @@ function scheduler:poller_waitfs(obj, timeout)
     local ok, errors = poller:insert(obj, 0, self._poller_events_cb)
     if not ok then
         return -1, errors
+    end
+
+    -- no event yet? return immediately if timeout is zero
+    --
+    -- @note we have inserted it into the poller, so the next event is still saved
+    -- as a pending status when it arrives, and the next wait returns it immediately
+    if timeout == 0 then
+        return 0
     end
 
     -- register timeout task to timer

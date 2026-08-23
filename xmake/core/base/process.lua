@@ -81,9 +81,9 @@ end
 
 -- wait subprocess
 --
--- @param timeout   the timeout
+-- @param timeout   the timeout in milliseconds, -1 for infinite, 0 to check without waiting
 --
--- @return          ok, status
+-- @return          ok, status, e.g. -1 on error, 0 on timeout, 1 on exited
 --
 function _subprocess:wait(timeout)
 

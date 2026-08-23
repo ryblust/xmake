@@ -93,7 +93,7 @@ end
 
 -- wait event
 --
--- @param timeout   the timeout
+-- @param timeout   the timeout in milliseconds, -1 for infinite, 0 to check without waiting
 --
 -- @return          ok, event, e.g {type = fwatcher.ET_MODIFY, path = "/tmp"}
 --
